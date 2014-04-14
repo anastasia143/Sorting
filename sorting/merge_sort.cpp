@@ -1,18 +1,19 @@
 #include "merge_sort.h"
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
-void usualMergeSort(int *arr, int size)
+void usualMergeSort(int *arr, unsigned long int size)
 {
-	merge(arr, 0, size - 1);
+	usualMerge(arr, 0, size - 1);
 }
 
-void merge(int *arr, int left, int right){
+void usualMerge(int *arr, int left, int right){
 	if (right <= left)
 		return;
 	int middle = (left + right) / 2;
-	merge(arr, left, middle);
-	merge(arr, middle + 1, right);
+	usualMerge(arr, left, middle);
+	usualMerge(arr, middle + 1, right);
 
 	int helperSize = right - left + 1;
 	int leftCounter = left;

@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core
+QT   += core
 
-QT       -= gui
+QT   -= gui
 
 TARGET = sorting
 CONFIG   += console
@@ -17,7 +17,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    merge_sort.cpp
+    merge_sort.cpp \
+    tree.cpp \
+    test.cpp \
+    multiway_merge_sort.cpp
 
 HEADERS += \
-    merge_sort.h
+    merge_sort.h \
+    tree.h \
+    test.h \
+    multiway_merge_sort.h

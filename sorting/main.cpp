@@ -2,23 +2,13 @@
 #include <QCoreApplication>
 #include <iostream>
 #include "merge_sort.h"
+#include "tree.h"
+#include "test.h"
 using namespace std;
 
 int main()
 {
-	int size = 20;
-	int* arr = new int[size];
-	for(int i = 0; i < size; i++)
-		arr[i] = rand() % 15;
-
-	for(int i = 0; i < size; i++)
-		cout << arr[i] << " ";
-	cout << endl;
-
-	usualMergeSort(arr, size);
-
-	for(int i = 0; i < size; i++)
-		cout << arr[i] << " ";
-	delete [] arr;
+	Test* test = new Test;
+	test->mergeSortTest();
 	return 0;
 }
