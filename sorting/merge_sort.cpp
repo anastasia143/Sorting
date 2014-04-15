@@ -3,9 +3,13 @@
 #include <cstdlib>
 using namespace std;
 
+int* helper;
+
 void usualMergeSort(int *arr, unsigned long int size)
 {
+	helper = new int[size];
 	usualMerge(arr, 0, size - 1);
+	delete [] helper;
 }
 
 void usualMerge(int *arr, int left, int right){
@@ -18,7 +22,6 @@ void usualMerge(int *arr, int left, int right){
 	int helperSize = right - left + 1;
 	int leftCounter = left;
 	int rightCounter = middle + 1;
-	int* helper = new int[helperSize];
 	for(int i = 0; i < helperSize; i++)
 	{
 		if(((arr[leftCounter] < arr[rightCounter]) && (leftCounter <= middle))
@@ -36,5 +39,4 @@ void usualMerge(int *arr, int left, int right){
 
 	for(int i = 0; i < helperSize; i++)
 		arr[left + i] = helper[i];
-	delete [] helper;
 }
