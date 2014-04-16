@@ -23,7 +23,7 @@ void Test::multiwayMergeSortTest()
 
 void Test::funnelSortTest()
 {
-
+	funnelSort(arr, size);
 }
 
 Test::~Test()

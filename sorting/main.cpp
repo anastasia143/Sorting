@@ -1,14 +1,14 @@
 #include <QtTest/QTest>
 #include <QCoreApplication>
 #include <iostream>
-#include "merge_sort.h"
-#include "tree.h"
 #include "test.h"
 using namespace std;
 
 int main()
 {
 	Test* test = new Test;
-	test->mergeSortTest();
+	//test->mergeSortTest();
+	test->funnelSortTest();
+	delete test;
 	return 0;
 }

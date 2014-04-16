@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <QTime>
 #include "merge_sort.h"
+#include "funnel_sort.h"
+#include "multiway_merge_sort.h"
 using namespace std;
 
 class Test
@@ -15,6 +17,6 @@ public:
 	void funnelSortTest();
 private:
 	int* arr;
-	unsigned long int size = 184467440;
+	unsigned long int size = 26; //184467440;
 	QTime timer;
 };

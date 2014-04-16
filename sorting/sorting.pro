@@ -18,12 +18,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     merge_sort.cpp \
-    tree.cpp \
     test.cpp \
-    multiway_merge_sort.cpp
+    multiway_merge_sort.cpp \
+    funnel_sort.cpp
 
 HEADERS += \
     merge_sort.h \
-    tree.h \
     test.h \
-    multiway_merge_sort.h
+    multiway_merge_sort.h \
+    funnel_sort.h \
+    buffersAndFunnels.h
