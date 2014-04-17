@@ -17,6 +17,7 @@ public:
 	void funnelSortTest();
 private:
 	int* arr;
-	unsigned long int size = 26; //184467440;
+	int* arr2;
+	unsigned long int size = 23; //184467440;
 	QTime timer;
 };

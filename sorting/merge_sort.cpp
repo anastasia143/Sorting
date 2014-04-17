@@ -3,21 +3,39 @@
 #include <cstdlib>
 using namespace std;
 
-int* helper;
-
-void usualMergeSort(int *arr, unsigned long int size)
+void usualMergeSort(int* arr, unsigned long int size)
 {
-	helper = new int[size];
-	usualMerge(arr, 0, size - 1);
+	int* helper = new int[size];
+	for(int i = 0; i < size; i++)
+		helper[i] = arr[i];
+
+	bool* checkBit = new bool;
+	*checkBit = true;
+	usualMerge(arr, helper, checkBit, 0, size - 1);
+	if(checkBit)
+	{
+		for(int i = 0; i < size; i++)
+			arr[i] = helper[i];
+	}
 	delete [] helper;
 }
 
-void usualMerge(int *arr, int left, int right){
+void usualMerge(int* arr, int* helper, bool* bit, int left, int right)
+{
 	if (right <= left)
 		return;
 	int middle = (left + right) / 2;
-	usualMerge(arr, left, middle);
-	usualMerge(arr, middle + 1, right);
+
+	if(!bit)
+	{
+		usualMerge(arr, helper, bit, left, middle);
+		usualMerge(arr, helper, bit, middle + 1, right);
+	}
+	else
+	{
+		usualMerge(helper, arr, bit, left, middle);
+		usualMerge(helper, arr, bit, middle + 1, right);
+	}
 
 	int helperSize = right - left + 1;
 	int leftCounter = left;
@@ -27,16 +45,14 @@ void usualMerge(int *arr, int left, int right){
 		if(((arr[leftCounter] < arr[rightCounter]) && (leftCounter <= middle))
 											|| (rightCounter > right))
 		{
-			helper[i] = arr[leftCounter];
+			helper[left + i] = arr[leftCounter];
 			leftCounter++;
 		}
 		else
 		{
-			helper[i] = arr[rightCounter];
+			helper[left + i] = arr[rightCounter];
 			rightCounter++;
 		}
 	}
-
-	for(int i = 0; i < helperSize; i++)
-		arr[left + i] = helper[i];
+	bit = !&bit;
 }

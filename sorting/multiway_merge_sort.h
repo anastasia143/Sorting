@@ -1,5 +1,4 @@
 #pragma once
-#include "tree.h"
 #include <QList>
 #include <iostream>
 #include <cstdlib>
