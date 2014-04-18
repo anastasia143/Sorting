@@ -18,6 +18,6 @@ public:
 private:
 	int* arr;
 	int* arr2;
-	unsigned long int size = 23; //184467440;
+	unsigned long int size = 9; //184467440;
 	QTime timer;
 };

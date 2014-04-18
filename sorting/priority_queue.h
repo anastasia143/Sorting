@@ -22,6 +22,7 @@ public:
 	void push(int new_value, int new_owner);
 	int pop();
 	int top();
+	int topOwner();
 	bool isEmpty()
 	{
 		return (size == 0);

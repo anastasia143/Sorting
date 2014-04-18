@@ -3,7 +3,7 @@
 #include <cstdlib>
 using namespace std;
 
-void usualMergeSort(int* arr, unsigned long int size)
+void mergeSort(int* arr, unsigned long int size)
 {
 	int* helper = new int[size];
 	for(int i = 0; i < size; i++)
@@ -11,7 +11,7 @@ void usualMergeSort(int* arr, unsigned long int size)
 
 	bool* checkBit = new bool;
 	*checkBit = true;
-	usualMerge(arr, helper, checkBit, 0, size - 1);
+	merge(arr, helper, checkBit, 0, size - 1);
 	if(checkBit)
 	{
 		for(int i = 0; i < size; i++)
@@ -20,7 +20,7 @@ void usualMergeSort(int* arr, unsigned long int size)
 	delete [] helper;
 }
 
-void usualMerge(int* arr, int* helper, bool* bit, int left, int right)
+void merge(int* arr, int* helper, bool* bit, int left, int right)
 {
 	if (right <= left)
 		return;
@@ -28,13 +28,13 @@ void usualMerge(int* arr, int* helper, bool* bit, int left, int right)
 
 	if(!bit)
 	{
-		usualMerge(arr, helper, bit, left, middle);
-		usualMerge(arr, helper, bit, middle + 1, right);
+		merge(arr, helper, bit, left, middle);
+		merge(arr, helper, bit, middle + 1, right);
 	}
 	else
 	{
-		usualMerge(helper, arr, bit, left, middle);
-		usualMerge(helper, arr, bit, middle + 1, right);
+		merge(helper, arr, bit, left, middle);
+		merge(helper, arr, bit, middle + 1, right);
 	}
 
 	int helperSize = right - left + 1;
