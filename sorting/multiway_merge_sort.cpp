@@ -48,8 +48,8 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 	for(int i = 0; i < 8; i++)
 		cout << arr[i] << " ";*/
 
-	int smallArraysSize = (int)ceil((double)(size + 1) / (double)k);
-	int border = smallArraysSize;
+	int smallArraysSize = (int)ceil((double)(size - begin.first() + 1) / (double)k);
+	int border = begin.first() + smallArraysSize;
 
 	for(int i = 0; i < k; i++)
 	{
@@ -78,6 +78,7 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 		list.append(begin.at(i));
 		QList<int> list2;
 		list2.append(end.at(i));
+		//cout << endl << "I will merge: " << list.first() << "and " << list2.first();
 		multiwayMerge(arr, helper, list, list2, k);
 	}
 
@@ -134,6 +135,6 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 	for(int i = begin.first(); i <= end.last(); i++)
 	{
 		arr[i] = helper[i];
-		cout << helper[i] << " ";
+		//cout << helper[i] << " ";
 	}
 }

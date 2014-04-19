@@ -9,6 +9,7 @@ int main()
 {
 	Test* test = new Test;
 	test->multiwayMergeSortTest();
+	test->mergeSortTest();
 	//test->funnelSortTest();
 	delete test;
 	return 0;
