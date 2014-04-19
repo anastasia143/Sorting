@@ -21,18 +21,19 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 	if(begin.first() >= end.first())
 		return;
 
-	int size = end.takeLast();
+	int lastEnd = end.takeLast();
+	int firstBeg = begin.first();
 
 	/*cout <<  endl << endl << "step 111111 :";
 	for(int i = 0; i < 8; i++)
 		cout << arr[i] << " ";*/
 
-	if(size - begin.first() + 1 < k)
+	if(lastEnd - firstBeg + 1 < k)
 	{
 		PriorityQueue* queue = new PriorityQueue;
-		for(int i = begin.first(); i <= size; i++)
+		for(int i = firstBeg; i <= lastEnd; i++)
 			queue->push(arr[i], i);
-		int counter = begin.first();
+		int counter = firstBeg;
 		while(!queue->isEmpty())
 		{
 			arr[counter] = queue->pop();
@@ -48,21 +49,21 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 	for(int i = 0; i < 8; i++)
 		cout << arr[i] << " ";*/
 
-	int smallArraysSize = (int)ceil((double)(size - begin.first() + 1) / (double)k);
-	int border = begin.first() + smallArraysSize;
+	int smallArraysSize = (int)ceil((double)(lastEnd - firstBeg + 1) / (double)k);
+	int border = firstBeg + smallArraysSize;
 
 	for(int i = 0; i < k; i++)
 	{
-		if(border > size)
+		if(border > lastEnd)
 		{
-			end.append(size);
+			end.append(lastEnd);
 			break;
 		}
 		end.append(border - 1);
-		if(border == size)
+		if(border == lastEnd)
 		{
 			begin.append(border);
-			end.append(size);
+			end.append(lastEnd);
 			break;
 		}
 		begin.append(border);
@@ -91,7 +92,7 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 		counters[i] = begin.at(i) + 1;
 	}
 
-	int index = begin.first();
+	int index = firstBeg;
 	bool readFromArrays = true;
 	while(index <= end.last())
 	{
