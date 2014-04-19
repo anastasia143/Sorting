@@ -6,7 +6,7 @@ Test::Test()
 	arr2 = new int[size];
 	for(int i = 0; i < size; i++)
 	{
-		arr[i] = rand() % 100000;//2000000;
+		arr[i] = rand() % 100;//2000000;
 		arr2[i] = arr[i];
 	}
 }
@@ -21,6 +21,9 @@ void Test::mergeSortTest()
 	mergeSort(arr, size);
 	int time = timer.elapsed() / 1000;
 	cout << " TIME merge seconds: " << time << endl;
+	cout << "ENDDDD" << endl;
+	/*for(int i = 0; i < size; i++)
+		cout << arr[i] << " ";*/
 
 }
 
@@ -34,9 +37,9 @@ void Test::multiwayMergeSortTest()
 	multiwayMergeSort(arr2, size, 5);
 	int time = timer.elapsed() / 1000;
 	cout << " TIME multiway seconds: " << time << endl;
-	/*cout << "ENDDDD" << endl;
-	for(int i = 0; i < size; i++)
-		cout << arr[i] << " ";*/
+	cout << "ENDDDD" << endl;
+	/*for(int i = 0; i < size; i++)
+		cout << arr2[i] << " ";*/
 }
 
 void Test::funnelSortTest()

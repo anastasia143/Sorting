@@ -56,3 +56,15 @@ void merge(int* arr, int* helper, bool* bit, int left, int right)
 	}
 	bit = !&bit;
 }
+
+void mergeSort(int *arr, int *helper, int left, int right)
+{
+	bool* checkBit = new bool;
+	*checkBit = true;
+	merge(arr, helper, checkBit, left, right);
+	if(checkBit)
+	{
+		for(int i = left; i <= right; i++)
+			arr[i] = helper[i];
+	}
+}

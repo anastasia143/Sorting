@@ -75,3 +75,13 @@ int PriorityQueue::pop()
 	return result;
 }
 
+void PriorityQueue::clear()
+{
+	Node* node = root;
+	while(node != NULL)
+	{
+		Node* pemp = node;
+		node = node->next;
+		delete pemp;
+	}
+}

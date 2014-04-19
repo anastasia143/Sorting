@@ -4,16 +4,25 @@
 
 // in bights
 const int cacheSize = 128 * 1024;
+bool checkbit;
 
 void multiwayMergeSort(int* arr, unsigned int size, int k)
 {
+	int new_k = (int)pow(size, (1./3));
 	QList<int> list;
 	QList<int> list2;
 	list.append(0);
 	list2.append(size - 1);
 	int* helper = new int[size];
-	multiwayMerge(arr, helper, list, list2, k);
-	//cout << "EEDDD";
+	for(int i = 0; i < size; i++)
+		helper[i] = arr[i];
+	checkbit = true;
+	multiwayMerge(arr, helper, list, list2, new_k);
+	if(!checkbit)
+	{
+		for(int i = 0; i < size; i++)
+			arr[i] = helper[i];
+	}
 }
 
 void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int k)
@@ -24,13 +33,15 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 	int lastEnd = end.takeLast();
 	int firstBeg = begin.first();
 
-	/*cout <<  endl << endl << "step 111111 :";
-	for(int i = 0; i < 8; i++)
-		cout << arr[i] << " ";*/
-
+	PriorityQueue* queue = new PriorityQueue;
 	if(lastEnd - firstBeg + 1 < k)
 	{
-		PriorityQueue* queue = new PriorityQueue;
+		mergeSort(arr, helper, firstBeg, lastEnd);
+		return;
+	}
+	/*if(lastEnd - firstBeg + 1 < k)
+	{
+		queue->clear();
 		for(int i = firstBeg; i <= lastEnd; i++)
 			queue->push(arr[i], i);
 		int counter = firstBeg;
@@ -39,16 +50,8 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 			arr[counter] = queue->pop();
 			counter++;
 		}
-
-		/*cout << endl << "step 222222 :";
-		for(int i = 0; i < 8; i++)
-			cout << arr[i] << " ";*/
 		return;
-	}
-	/*cout << endl << "step 222222 :";
-	for(int i = 0; i < 8; i++)
-		cout << arr[i] << " ";*/
-
+	}*/
 	int smallArraysSize = (int)ceil((double)(lastEnd - firstBeg + 1) / (double)k);
 	int border = firstBeg + smallArraysSize;
 
@@ -79,16 +82,16 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 		list.append(begin.at(i));
 		QList<int> list2;
 		list2.append(end.at(i));
-		//cout << endl << "I will merge: " << list.first() << "and " << list2.first();
-		multiwayMerge(arr, helper, list, list2, k);
+		if(checkbit)
+			multiwayMerge(arr, helper, list, list2, k);
+		else
+			multiwayMerge(helper, arr, list, list2, k);
 	}
 
-	//cout << endl << "TESSTS" << endl;
-	PriorityQueue* queue = new PriorityQueue;
+	queue->clear();
 	for(int i = 0; i < arraysCount; i++)
 	{
 		queue->push(arr[begin.at(i)], i);
-		//cout << arr[begin.at(i)] << " ";
 		counters[i] = begin.at(i) + 1;
 	}
 
@@ -103,7 +106,6 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 			if(counters[owner] <= end.at(owner))
 			{
 				queue->push(arr[counters[owner]], owner);
-				int CID = counters[owner];
 				counters[owner]++;
 			}
 			else
@@ -111,8 +113,6 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 				int new_owner = 0;
 				while(counters[new_owner] > end.at(new_owner))
 				{
-					int CNO = counters[new_owner];
-					int EAN = end.at(new_owner);
 					new_owner++;
 					if(new_owner >= arraysCount)
 					{
@@ -127,15 +127,7 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 				}
 			}
 		}
-		/*cout << endl << endl << "Helper: ";
-		for(int i = 0; i < 9; i++)
-				cout << helper[i] << " ";*/
 		index++;
 	}
-	//cout << "endlasf: " << end.last() << endl;
-	for(int i = begin.first(); i <= end.last(); i++)
-	{
-		arr[i] = helper[i];
-		//cout << helper[i] << " ";
-	}
+	checkbit = !checkbit;
 }

@@ -23,6 +23,7 @@ public:
 	int pop();
 	int top();
 	int topOwner();
+	void clear();
 	bool isEmpty()
 	{
 		return (size == 0);
