@@ -13,7 +13,7 @@ void multiwayMergeSort(int* arr, unsigned int size, int k)
 	list2.append(size - 1);
 	int* helper = new int[size];
 	multiwayMerge(arr, helper, list, list2, k);
-	cout << "EEDDD";
+	//cout << "EEDDD";
 }
 
 void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int k)
@@ -23,9 +23,9 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 
 	int size = end.takeLast();
 
-	cout <<  endl << endl << "step 111111 :";
+	/*cout <<  endl << endl << "step 111111 :";
 	for(int i = 0; i < 8; i++)
-		cout << arr[i] << " ";
+		cout << arr[i] << " ";*/
 
 	if(size - begin.first() + 1 < k)
 	{
@@ -39,14 +39,14 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 			counter++;
 		}
 
-		cout << endl << "step 222222 :";
+		/*cout << endl << "step 222222 :";
 		for(int i = 0; i < 8; i++)
-			cout << arr[i] << " ";
+			cout << arr[i] << " ";*/
 		return;
 	}
-	cout << endl << "step 222222 :";
+	/*cout << endl << "step 222222 :";
 	for(int i = 0; i < 8; i++)
-		cout << arr[i] << " ";
+		cout << arr[i] << " ";*/
 
 	int smallArraysSize = (int)ceil((double)(size + 1) / (double)k);
 	int border = smallArraysSize;
@@ -81,44 +81,59 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 		multiwayMerge(arr, helper, list, list2, k);
 	}
 
-	cout << endl << "TESSTS" << endl;
+	//cout << endl << "TESSTS" << endl;
 	PriorityQueue* queue = new PriorityQueue;
 	for(int i = 0; i < arraysCount; i++)
 	{
 		queue->push(arr[begin.at(i)], i);
-		cout << arr[begin.at(i)] << " ";
+		//cout << arr[begin.at(i)] << " ";
 		counters[i] = begin.at(i) + 1;
 	}
 
 	int index = begin.first();
+	bool readFromArrays = true;
 	while(index <= end.last())
 	{
 		int owner = queue->topOwner();
 		helper[index] = queue->pop();
-		int CO = counters[owner];
-		int EA  = end.at(owner);
-		if(counters[owner] <= end.at(owner))
+		if(readFromArrays)
 		{
-			queue->push(arr[counters[owner]], owner);
-			int CID = counters[owner];
-			counters[owner]++;
-		}
-		else
-		{
-			int new_owner = 0;
-			while(counters[new_owner] > end.at(new_owner))
+			if(counters[owner] <= end.at(owner))
 			{
-				new_owner++;
-				if(new_owner > arraysCount)
-					break;
+				queue->push(arr[counters[owner]], owner);
+				int CID = counters[owner];
+				counters[owner]++;
 			}
-			queue->push(arr[counters[new_owner]], new_owner);
-			counters[new_owner]++;
+			else
+			{
+				int new_owner = 0;
+				while(counters[new_owner] > end.at(new_owner))
+				{
+					int CNO = counters[new_owner];
+					int EAN = end.at(new_owner);
+					new_owner++;
+					if(new_owner >= arraysCount)
+					{
+						readFromArrays = false;
+						break;
+					}
+				}
+				if(readFromArrays)
+				{
+					queue->push(arr[counters[new_owner]], new_owner);
+					counters[new_owner]++;
+				}
+			}
 		}
-		cout << endl << endl << "Helper: ";
-		for(int i = 0; i < 8; i++)
-				cout << helper[i] << " ";
+		/*cout << endl << endl << "Helper: ";
+		for(int i = 0; i < 9; i++)
+				cout << helper[i] << " ";*/
 		index++;
 	}
-	int m = 0;
+	//cout << "endlasf: " << end.last() << endl;
+	for(int i = begin.first(); i <= end.last(); i++)
+	{
+		arr[i] = helper[i];
+		cout << helper[i] << " ";
+	}
 }
