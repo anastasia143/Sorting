@@ -14,15 +14,10 @@ void multiwayMergeSort(int* arr, unsigned int size, int k)
 	list.append(0);
 	list2.append(size - 1);
 	int* helper = new int[size];
-	for(int i = 0; i < size; i++)
-		helper[i] = arr[i];
+	/*for(int i = 0; i < size; i++)
+		helper[i] = arr[i];*/
 	checkbit = true;
-	multiwayMerge(arr, helper, list, list2, new_k);
-	if(!checkbit)
-	{
-		for(int i = 0; i < size; i++)
-			arr[i] = helper[i];
-	}
+	multiwayMerge(arr, helper, list, list2, 3);
 }
 
 void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int k)
@@ -41,6 +36,7 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 	}
 	/*if(lastEnd - firstBeg + 1 < k)
 	{
+		cout << "I will merge: " << firstBeg << " and " << lastEnd;
 		queue->clear();
 		for(int i = firstBeg; i <= lastEnd; i++)
 			queue->push(arr[i], i);
@@ -50,6 +46,9 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 			arr[counter] = queue->pop();
 			counter++;
 		}
+		cout << endl;
+		for(int i = 0; i < 10; i++)
+			cout << arr[i] << " ";
 		return;
 	}*/
 	int smallArraysSize = (int)ceil((double)(lastEnd - firstBeg + 1) / (double)k);
@@ -82,11 +81,14 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 		list.append(begin.at(i));
 		QList<int> list2;
 		list2.append(end.at(i));
-		if(checkbit)
+		//cout << endl << "I will merge: " << list.first() << " " << list2.first() << endl;
+		//if(checkbit)
 			multiwayMerge(arr, helper, list, list2, k);
-		else
-			multiwayMerge(helper, arr, list, list2, k);
+		//else
+			//multiwayMerge(helper, arr, list, list2, k);
 	}
+
+	//cout << endl << "I will merge: " << firstBeg << " and " << lastEnd;
 
 	queue->clear();
 	for(int i = 0; i < arraysCount; i++)
@@ -111,6 +113,10 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 			else
 			{
 				int new_owner = 0;
+				/*cout << endl << endl << "STATISTICS: " << endl;
+				for(int i = 0; i < arraysCount; i++)
+						cout << "i = " << i << " counters: " << counters[i] << endl;*/
+
 				while(counters[new_owner] > end.at(new_owner))
 				{
 					new_owner++;
@@ -129,5 +135,14 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 		}
 		index++;
 	}
-	checkbit = !checkbit;
+	for(int i = firstBeg; i <= lastEnd; i++)
+		arr[i] = helper[i];
+	/*for(int i = 0; i < 30; i++)
+	{
+		if (i == firstBeg)
+			cout << "<";
+		cout << arr[i] << " ";
+		if (i == lastEnd)
+			cout << ">";
+	}*/
 }
