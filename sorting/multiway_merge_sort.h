@@ -7,4 +7,4 @@
 using namespace std;
 
 void multiwayMergeSort(int* arr, unsigned int size, int k);
-void multiwayMerge(int* arr, int* helper, QList<int> begin, QList<int> end, int k);
+void multiwayMerge(int* arr, int* helper, QVector<int> begin, QVector<int> end, int k);

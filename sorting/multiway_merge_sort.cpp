@@ -1,16 +1,16 @@
 #include "multiway_merge_sort.h"
 #include "math.h"
-#include <QList>
+#include <QVector>
 
 // in bights
-const int cacheSize = 128 * 1024;
+//const int cacheSize = 128 * 1024;
 bool checkbit;
 
 void multiwayMergeSort(int* arr, unsigned int size, int k)
 {
 	int new_k = (int)pow(size, (1./3));
-	QList<int> list;
-	QList<int> list2;
+	QVector<int> list;
+	QVector<int> list2;
 	list.append(0);
 	list2.append(size - 1);
 	int* helper = new int[size];
@@ -20,7 +20,7 @@ void multiwayMergeSort(int* arr, unsigned int size, int k)
 	multiwayMerge(arr, helper, list, list2, 3);
 }
 
-void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int k)
+void multiwayMerge(int *arr, int *helper, QVector<int> begin, QVector<int> end, int k)
 {
 	if(begin.first() >= end.first())
 		return;
@@ -29,14 +29,14 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 	int firstBeg = begin.first();
 
 	PriorityQueue* queue = new PriorityQueue;
-	if(lastEnd - firstBeg + 1 < k)
+	/*if(lastEnd - firstBeg + 1 < k)
 	{
 		mergeSort(arr, helper, firstBeg, lastEnd);
 		return;
-	}
-	/*if(lastEnd - firstBeg + 1 < k)
+	}*/
+	if(lastEnd - firstBeg + 1 < k)
 	{
-		cout << "I will merge: " << firstBeg << " and " << lastEnd;
+		//cout << "I will merge: " << firstBeg << " and " << lastEnd;
 		queue->clear();
 		for(int i = firstBeg; i <= lastEnd; i++)
 			queue->push(arr[i], i);
@@ -46,11 +46,8 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 			arr[counter] = queue->pop();
 			counter++;
 		}
-		cout << endl;
-		for(int i = 0; i < 10; i++)
-			cout << arr[i] << " ";
 		return;
-	}*/
+	}
 	int smallArraysSize = (int)ceil((double)(lastEnd - firstBeg + 1) / (double)k);
 	int border = firstBeg + smallArraysSize;
 
@@ -77,9 +74,9 @@ void multiwayMerge(int *arr, int *helper, QList<int> begin, QList<int> end, int 
 
 	for(int i = 0; i < arraysCount; i++)
 	{
-		QList<int> list;
+		QVector<int> list;
 		list.append(begin.at(i));
-		QList<int> list2;
+		QVector<int> list2;
 		list2.append(end.at(i));
 		//cout << endl << "I will merge: " << list.first() << " " << list2.first() << endl;
 		//if(checkbit)

@@ -9,33 +9,18 @@ void mergeSort(int* arr, unsigned long int size)
 	for(int i = 0; i < size; i++)
 		helper[i] = arr[i];
 
-	bool* checkBit = new bool;
-	*checkBit = true;
-	merge(arr, helper, checkBit, 0, size - 1);
-	if(checkBit)
-	{
-		for(int i = 0; i < size; i++)
-			arr[i] = helper[i];
-	}
+	merge(arr, helper, 0, size - 1);
 	delete [] helper;
 }
 
-void merge(int* arr, int* helper, bool* bit, int left, int right)
+void merge(int* arr, int* helper, int left, int right)
 {
 	if (right <= left)
 		return;
 	int middle = (left + right) / 2;
 
-	if(!bit)
-	{
-		merge(arr, helper, bit, left, middle);
-		merge(arr, helper, bit, middle + 1, right);
-	}
-	else
-	{
-		merge(helper, arr, bit, left, middle);
-		merge(helper, arr, bit, middle + 1, right);
-	}
+	merge(arr, helper, left, middle);
+	merge(arr, helper, middle + 1, right);
 
 	int helperSize = right - left + 1;
 	int leftCounter = left;
@@ -54,17 +39,6 @@ void merge(int* arr, int* helper, bool* bit, int left, int right)
 			rightCounter++;
 		}
 	}
-	bit = !&bit;
-}
-
-void mergeSort(int *arr, int *helper, int left, int right)
-{
-	bool* checkBit = new bool;
-	*checkBit = true;
-	merge(arr, helper, checkBit, left, right);
-	if(checkBit)
-	{
-		for(int i = left; i <= right; i++)
-			arr[i] = helper[i];
-	}
+	for(int i = left; i <= right; i++)
+		arr[i] = helper[i];
 }
