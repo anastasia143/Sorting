@@ -27,6 +27,7 @@ void multiwayMerge(int *arr, int *helper, QVector<int> begin, QVector<int> end, 
 
 	int lastEnd = end.takeLast();
 	int firstBeg = begin.first();
+	int size = lastEnd - firstBeg + 1;
 
 	PriorityQueue* queue = new PriorityQueue;
 	/*if(lastEnd - firstBeg + 1 < k)
@@ -34,7 +35,7 @@ void multiwayMerge(int *arr, int *helper, QVector<int> begin, QVector<int> end, 
 		mergeSort(arr, helper, firstBeg, lastEnd);
 		return;
 	}*/
-	if(lastEnd - firstBeg + 1 < k)
+	if(size < k || size < 4)
 	{
 		//cout << "I will merge: " << firstBeg << " and " << lastEnd;
 		queue->clear();

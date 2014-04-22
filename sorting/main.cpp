@@ -9,10 +9,11 @@ using namespace std;
 int main()
 {
 	Test* test = new Test;
+	//test->mergeSortTest();
 	test->mergeSortTest();
+	test->funnelSortTest();
 	test->multiwayMergeSortTest();
 	//test->mergeSortTest();
-	//test->funnelSortTest();
 	delete test;
 	return 0;
 }
