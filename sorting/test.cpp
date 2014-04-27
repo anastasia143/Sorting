@@ -48,7 +48,7 @@ void Test::funnelSortTest()
 {
 	cout << "START" << endl;
 	timer.start();
-	funnelSort(arr, size);
+//	funnelSort(arr, size);
 	int time = timer.elapsed();
 	cout << " TIME funnel seconds: " << time << endl;
 	cout << "ENDDDD" << endl;

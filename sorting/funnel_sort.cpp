@@ -1,116 +1,89 @@
 #include "funnel_sort.h"
-#include "math.h"
-#include "buffersAndFunnels.h"
 
-void funnelSort(int* arr, unsigned int size)
+bool isLessThenHalfFull(Buffer* buf)
 {
-	int k = (int)pow(size, (1./3));
-	QVector<int> list;
-	QVector<int> list2;
-	list.append(0);
-	list2.append(size - 1);
-	int* helper = new int[size];
-	funnelMerge(arr, helper, list, list2);
+	return (buf->counter < (buf->size / 2));
 }
 
-void funnelMerge(int* arr, int* helper, QVector<int> begin, QVector<int> end)
+
+void funnelSort(int* arr, int size)
 {
-	if(begin.first() >= end.first())
-		return;
+	Funnel funnel;
+	int k = size;
+	int buffersSize = (int)pow(k, (3./2));
+	int buffersCount = (int)pow(k, (1./2));
+	int inputUnit = 0;
+	if(size % buffersCount == 0)
+		inputUnit = size / buffersCount;
+	else
+		inputUnit = (double)size / (double)buffersCount + 1;
+	funnel.input = new Buffer[buffersCount];
 
-	int lastEnd = end.takeLast();
-	int firstBeg = begin.first();
-	int size = lastEnd - firstBeg + 1;
-	int k = (int)pow(size, (1./3));
+	funnel.exhausted = false;
+	funnel.counter = 0;
 
-	PriorityQueue* queue = new PriorityQueue;
-	if(size < k || size <= 3 || k < 2)
+	int arrCounter = 0;
+	for(int i = 0; i < buffersCount; i++)
 	{
-		queue->clear();
-		for(int i = firstBeg; i <= lastEnd; i++)
-			queue->push(arr[i], i);
-		int counter = firstBeg;
-		while(!queue->isEmpty())
+		funnel.input[i].counter = 0;
+		funnel.input[i].size = buffersSize;
+		funnel.input[i].arr = new int[buffersSize];
+		for(int c = 0; c < inputUnit; c++)
 		{
-			arr[counter] = queue->pop();
-			counter++;
+			funnel.input[i].arr[c] = arr[arrCounter];
+			funnel.input[i].counter++;
+			arrCounter++;
+			if(arrCounter == size)
+				break;
 		}
-		return;
-	}
-	int smallArraysSize = (int)ceil((double)(lastEnd - firstBeg + 1) / (double)k);
-	int border = firstBeg + smallArraysSize;
-
-	for(int i = 0; i < k; i++)
-	{
-		if(border > lastEnd)
-		{
-			end.append(lastEnd);
+		if(arrCounter == size)
 			break;
-		}
-		end.append(border - 1);
-		if(border == lastEnd)
+	}
+
+	for(int i = 0; i < buffersCount; i++)
+	{
+		cout << endl << endl;
+		cout << "Buffer number: " << i << endl;
+		for(int c = 0; c < funnel.input[i].counter; c++)
+			cout << funnel.input[i].arr[c] << " ";
+	}
+}
+
+void mergeManually()
+{
+
+}
+
+void invoke(int k, Funnel rootFunnel)
+{
+	int buffersSize = (int)pow(k, (1./2));
+	Buffer* buffers = new Buffer[buffersSize];
+	Funnel funnel;
+	funnel.exhausted = true;
+	funnel.counter = 0;
+	Funnel* funnels = new Funnel[buffersSize];
+	for(int i = 0; i < buffersSize; i++)
+	{
+		buffers[i].size = (int)pow(k, (3./2));
+		buffers[i].counter = 0;
+		funnels[i].exhausted = false;
+		funnels[i].counter = 0;
+	}
+
+	if(k == 2 || k == 3)
+		mergeManually();
+	else
+	{
+		for(int bufEl = 1; bufEl <= (int)pow(k, (3./2)); bufEl++) // buffers size
 		{
-			begin.append(border);
-			end.append(lastEnd);
-			break;
-		}
-		begin.append(border);
-		border = border + smallArraysSize;
-	}
-
-	int arraysCount = begin.size();
-	int* counters = new int[arraysCount];
-
-	for(int i = 0; i < arraysCount; i++)
-	{
-		QVector<int> list;
-		list.append(begin.at(i));
-		QVector<int> list2;
-		list2.append(end.at(i));
-		funnelMerge(arr, helper, list, list2);
-	}
-
-	queue->clear();
-	for(int i = 0; i < arraysCount; i++)
-	{
-		queue->push(arr[begin.at(i)], i);
-		counters[i] = begin.at(i) + 1;
-	}
-
-	int index = firstBeg;
-	bool readFromArrays = true;
-	while(index <= end.last())
-	{
-		int owner = queue->topOwner();
-		helper[index] = queue->pop();
-		if(readFromArrays)
-		{
-			if(counters[owner] <= end.at(owner))
+			for(int i = 0; i < k; i++) // для каждого буфера и его ниаз
 			{
-				queue->push(arr[counters[owner]], owner);
-				counters[owner]++;
-			}
-			else
-			{
-				int new_owner = 0;
-				while(counters[new_owner] > end.at(new_owner))
-				{
-					new_owner++;
-					if(new_owner >= arraysCount)
-					{
-						readFromArrays = false;
-						break;
-					}
-				}
-				if(readFromArrays)
-				{
-					queue->push(arr[counters[new_owner]], new_owner);
-					counters[new_owner]++;
-				}
+				if (isLessThenHalfFull(&buffers[i]) && !funnels[i].exhausted)
+					invoke(k, funnels[i]);
+				invoke(k, funnel);
 			}
 		}
-		index++;
 	}
-	for(int i = firstBeg; i <= lastEnd; i++)
-		arr[i] = helper[i];
+	if(funnel.output.counter < k^3)
+		funnel.exhausted = true;
 }

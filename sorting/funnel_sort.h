@@ -1,9 +1,26 @@
 #pragma once
+#include "math.h"
 #include <iostream>
-#include <QVector>
-#include <cstdlib>
-#include "priority_queue.h"
 using namespace std;
 
-void funnelSort(int* arr, unsigned int size);
-void funnelMerge(int* arr, int* helper, QVector<int> begin, QVector<int> end);
+struct Buffer // количество = k^(1/2)
+{
+	int size; // = k^(3/2)
+	int counter;
+	int* arr;
+};
+
+
+struct Funnel
+{
+	int counter; // k^(1/2) + 1 - количество
+	bool exhausted;
+	Buffer output;
+	Buffer* input;
+	int k;
+};
+
+bool isLessThenHalfFull(Buffer* buf);
+void funnelSort(int* arr, int size);
+void mergeManually();
+void invoke(int k, Funnel rootFunnel);
