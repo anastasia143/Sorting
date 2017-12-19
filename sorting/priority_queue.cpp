@@ -17,7 +17,7 @@ void PriorityQueue::push(int new_value, int new_owner)
 		root = nodeCreator(new_value, new_owner, NULL);
 		return;
 	}
-	if(new_value > root->value)
+	if(new_value < root->value)
 	{
 		Node* node = nodeCreator(new_value, new_owner, root);
 		node->next = root;
@@ -29,7 +29,7 @@ void PriorityQueue::push(int new_value, int new_owner)
 	while(node->next != NULL)
 	{
 		//cout << endl << "try to " << new_value << " < ?" << node->value << endl;
-		if(new_value > node->next->value)
+		if(new_value < node->next->value)
 		{
 			Node* node2 = nodeCreator(new_value, new_owner, node->next);
 			node->next = node2;
@@ -58,6 +58,13 @@ int PriorityQueue::top()
 	return root->value;
 }
 
+int PriorityQueue::topOwner()
+{
+	if(size == 0)
+		return -1;
+	return root->owner;
+}
+
 int PriorityQueue::pop()
 {
 	if(size == 0)
@@ -68,3 +75,13 @@ int PriorityQueue::pop()
 	return result;
 }
 
+void PriorityQueue::clear()
+{
+	Node* node = root;
+	while(node != NULL)
+	{
+		Node* pemp = node;
+		node = node->next;
+		delete pemp;
+	}
+}

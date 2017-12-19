@@ -20,11 +20,13 @@ SOURCES += main.cpp \
     merge_sort.cpp \
     test.cpp \
     multiway_merge_sort.cpp \
-    funnel_sort.cpp
+    funnel_sort.cpp \
+    priority_queue.cpp
 
 HEADERS += \
     merge_sort.h \
     test.h \
     multiway_merge_sort.h \
     funnel_sort.h \
-    buffersAndFunnels.h
+    buffersAndFunnels.h \
+    priority_queue.h
