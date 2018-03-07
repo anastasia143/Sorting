@@ -1,0 +1,3 @@
+builds:
+  - name: "VertisAdmin_Hub_Build"
+    path: "/sorting"
