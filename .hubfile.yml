@@ -1,4 +1,4 @@
 builds:
   teamcity:
-    - name: "VertisAdmin_Hub_Build"
+    - id: "VertisAdmin_Hub_Build"
       path: "/sorting"
