@@ -2,3 +2,6 @@ builds:
   teamcity:
     - id: "VertisAdmin_Hub_Build"
       path: "/sorting"
+      properties:
+        - name: "prop"
+          value: "val"
