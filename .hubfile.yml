@@ -1,6 +1,6 @@
 builds:
   teamcity:
-    - id: "VertisAdmin_Hub_Build"
+    - idsdsd: "VertisAdmin_Hub_Build"
       path: "some/*"
       properties:
         - name: "prop"
