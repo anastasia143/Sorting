@@ -5,5 +5,5 @@ builds:
       properties:
         - name: "prop"
           value: "val"
-    - id: "VertisAdmin_HprofIntermediary"
+    - id: "VertisAdmin_HprofIntermediary_HprofIntermediary"
       path: "*"
