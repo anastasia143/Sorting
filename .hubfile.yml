@@ -1,9 +1,9 @@
 builds:
   teamcity:
     - id: "VertisAdmin_Hub_Build"
-      path: "*"
+      path: "some/*"
       properties:
         - name: "prop"
           value: "val"
     - id: "VertisAdmin_HprofIntermediary_HprofIntermediary"
-      path: "*"
+      path: "some/*"
