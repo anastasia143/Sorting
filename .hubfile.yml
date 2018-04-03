@@ -8,4 +8,4 @@ builds:
     - id: "VertisAdmin_HprofIntermediary_HprofIntermediary"
       path: "some/*"
 queues:
-  updateStatuses: ["VERTISADMIN", ""]
+  updateStatuses: ["VERTISADMIN", "HHHHHHHH"]
