@@ -7,3 +7,5 @@ builds:
           value: "val"
     - id: "VertisAdmin_HprofIntermediary_HprofIntermediary"
       path: "some/*"
+queues:
+  updateStatuses: ["VERTISADMIN", ""]
