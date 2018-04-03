@@ -1,29 +1,26 @@
 #pragma once
+#include "math.h"
 #include <iostream>
 using namespace std;
 
-void funnelSort(int* arr, unsigned int size);
-
-/*
-void mergeManually(Funnel* funnel, int k)
+struct Buffer // количество = k^(1/2)
 {
+	int size; // = k^(3/2)
+	int counter;
+	int* arr;
+};
 
-}
 
-void invoke(Funnel* funnel, int k)
+struct Funnel
 {
-	if(k <= 3)
-		mergeManually();
-	else
-	{
-		for(int i = 1; i <= (k^(3/2)); i++)
-			for(int b = 1; b <= k; b++)
-				if(buffer[b].lessThenHalfFull() && Li.isNotExhausted())
-				{
-					invoke(Li);
-				}
-		invoke(R);
-	}
-	if less than k3 elements was output then
-				mark F exhausted
-}*/
+	int counter; // k^(1/2) + 1 - количество
+	bool exhausted;
+	Buffer output;
+	Buffer* input;
+	int k;
+};
+
+bool isLessThenHalfFull(Buffer* buf);
+void funnelSort(int* arr, int size);
+void mergeManually();
+void invoke(int k, Funnel rootFunnel);
