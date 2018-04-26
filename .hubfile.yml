@@ -1,11 +1,11 @@
 builds:
   teamcity:
-     - id: "VertisAdmin_Hub_Build"
-       path: "sorting/*"
-       properties:
-         - name: "prop"
-           value: "val"
-     - id: "VertisAdmin_HprofIntermediary_HprofIntermediary"
-       path: "some/*"
- queues:
-   updateStatuses: ["VERTISADMIN", "HHHHHHHH"]
+    - id: "VertisAdmin_Hub_Build"
+      path: "sorting/*"
+      properties:
+        - name: "prop"
+          value: "val"
+    - id: "VertisAdmin_HprofIntermediary_HprofIntermediary"
+      path: "some/*"
+queues:
+  updateStatuses: ["VERTISADMIN", "HHHHHHHH"]
