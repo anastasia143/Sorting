@@ -6,6 +6,6 @@ builds:
          - name: "prop"
            value: "val"
      - id: "VertisAdmin_HprofIntermediary_HprofIntermediary"
-      path: "some/*"
+       path: "some/*"
  queues:
    updateStatuses: ["VERTISADMIN", "HHHHHHHH"]
